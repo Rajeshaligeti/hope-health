@@ -1,14 +1,23 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { memo } from 'react';
+import Dashboard from '@/components/Dashboard';
 
-const Index = () => {
+const Index = memo(() => {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
+    <div className="min-h-screen">
+      <div className="max-w-7xl mx-auto">
+        <div className="p-6 pb-0">
+          <h1 className="font-orbitron font-bold text-3xl mb-2">Health Dashboard</h1>
+          <p className="text-muted-foreground">
+            Your comprehensive health overview powered by AI insights
+          </p>
+        </div>
+        
+        <Dashboard />
       </div>
     </div>
   );
-};
+});
+
+Index.displayName = 'Index';
 
 export default Index;
