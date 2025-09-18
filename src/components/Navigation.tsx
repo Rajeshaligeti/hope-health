@@ -6,12 +6,8 @@ import { cn } from '@/lib/utils';
 
 const Navigation = memo(() => {
   const navItems = [
-    { to: '/', icon: LayoutDashboard, label: 'Dashboard' },
-    { to: '/chat', icon: MessageCircle, label: 'AI Assistant' },
-    { to: '/symptoms', icon: Stethoscope, label: 'Symptom Analysis' },
-    { to: '/calendar', icon: Calendar, label: 'Calendar' },
-    { to: '/bmi', icon: Calculator, label: 'BMI Calculator' },
-    { to: '/videos', icon: Play, label: 'Health Videos' },
+    { to: '/', icon: LayoutDashboard, label: 'Health Hub' },
+    { to: '/assistant', icon: MessageCircle, label: 'Health Assistant' },
     { to: '/settings', icon: Settings, label: 'Settings' },
   ];
 

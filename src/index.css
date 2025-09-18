@@ -7,30 +7,30 @@
 
 @layer base {
   :root {
-    /* Healthcare Color Palette */
-    --background: 220 25% 96%;
-    --foreground: 215 25% 15%;
+  /* Professional Healthcare Color Palette */
+  --background: 220 25% 96%;
+  --foreground: 215 25% 15%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 215 25% 15%;
+  --card: 0 0% 100%;
+  --card-foreground: 215 25% 15%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 215 25% 15%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 215 25% 15%;
 
-    /* Primary: Ocean Blue */
-    --primary: 210 85% 55%;
-    --primary-foreground: 0 0% 100%;
-    --primary-glow: 210 85% 65%;
+  /* Primary: Medical Teal */
+  --primary: 180 85% 45%;
+  --primary-foreground: 0 0% 100%;
+  --primary-glow: 180 85% 55%;
 
-    /* Secondary: Teal */
-    --secondary: 180 65% 50%;
-    --secondary-foreground: 0 0% 100%;
-    --secondary-glow: 180 65% 60%;
+  /* Secondary: Ocean Blue */
+  --secondary: 210 75% 50%;
+  --secondary-foreground: 0 0% 100%;
+  --secondary-glow: 210 75% 60%;
 
-    /* Accent: Mint Green */
-    --accent: 150 60% 55%;
-    --accent-foreground: 0 0% 100%;
-    --accent-glow: 150 60% 65%;
+  /* Accent: Healing Green */
+  --accent: 150 70% 45%;
+  --accent-foreground: 0 0% 100%;
+  --accent-glow: 150 70% 55%;
 
     /* Muted tones */
     --muted: 220 15% 94%;
@@ -62,9 +62,10 @@
     --shadow-glow: 0 0 30px hsl(var(--primary-glow) / 0.3);
     --shadow-card: 0 8px 30px hsl(215 25% 15% / 0.08);
 
-    /* Animations */
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-bounce: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  /* Animations */
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --transition-glow: all 0.4s ease-in-out;
 
     --sidebar-background: 0 0% 98%;
 
@@ -257,6 +258,15 @@
   .animate-typing {
     animation: typing 1.5s steps(3, end) infinite;
   }
+
+  /* Page transitions */
+  .page-enter {
+    animation: pageEnter 0.5s ease-out forwards;
+  }
+
+  .page-exit {
+    animation: pageExit 0.3s ease-in forwards;
+  }
 }
 
 @keyframes float {
@@ -272,4 +282,26 @@
 @keyframes typing {
   0%, 50% { opacity: 1; }
   51%, 100% { opacity: 0; }
+}
+
+@keyframes pageEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes pageExit {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
 }

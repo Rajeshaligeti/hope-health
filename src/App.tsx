@@ -5,11 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navigation from "./components/Navigation";
 import Index from "./pages/Index";
-import ChatPage from "./pages/ChatPage";
-import SymptomsPage from "./pages/SymptomsPage";
-import CalendarPage from "./pages/CalendarPage";
-import BMIPage from "./pages/BMIPage";
-import HealthVideosPage from "./pages/HealthVideosPage";
+import HealthAssistantPage from "./pages/HealthAssistantPage";
 import SettingsPage from "./pages/SettingsPage";
 import NotFound from "./pages/NotFound";
 
@@ -25,11 +21,7 @@ const App = () => (
           <Navigation />
           <Routes>
             <Route path="/" element={<Index />} />
-            <Route path="/chat" element={<ChatPage />} />
-            <Route path="/symptoms" element={<SymptomsPage />} />
-            <Route path="/calendar" element={<CalendarPage />} />
-            <Route path="/bmi" element={<BMIPage />} />
-            <Route path="/videos" element={<HealthVideosPage />} />
+            <Route path="/assistant" element={<HealthAssistantPage />} />
             <Route path="/settings" element={<SettingsPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
