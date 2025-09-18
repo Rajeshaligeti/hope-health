@@ -8,6 +8,8 @@ import Index from "./pages/Index";
 import ChatPage from "./pages/ChatPage";
 import SymptomsPage from "./pages/SymptomsPage";
 import CalendarPage from "./pages/CalendarPage";
+import BMIPage from "./pages/BMIPage";
+import HealthVideosPage from "./pages/HealthVideosPage";
 import SettingsPage from "./pages/SettingsPage";
 import NotFound from "./pages/NotFound";
 
@@ -26,6 +28,8 @@ const App = () => (
             <Route path="/chat" element={<ChatPage />} />
             <Route path="/symptoms" element={<SymptomsPage />} />
             <Route path="/calendar" element={<CalendarPage />} />
+            <Route path="/bmi" element={<BMIPage />} />
+            <Route path="/videos" element={<HealthVideosPage />} />
             <Route path="/settings" element={<SettingsPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />

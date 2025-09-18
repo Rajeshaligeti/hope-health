@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { NavLink } from 'react-router-dom';
-import { LayoutDashboard, MessageCircle, Stethoscope, Calendar, Settings } from 'lucide-react';
+import { LayoutDashboard, MessageCircle, Stethoscope, Calendar, Calculator, Play, Settings } from 'lucide-react';
 import HOPELogo from './HOPELogo';
 import { cn } from '@/lib/utils';
 
@@ -10,6 +10,8 @@ const Navigation = memo(() => {
     { to: '/chat', icon: MessageCircle, label: 'AI Assistant' },
     { to: '/symptoms', icon: Stethoscope, label: 'Symptom Analysis' },
     { to: '/calendar', icon: Calendar, label: 'Calendar' },
+    { to: '/bmi', icon: Calculator, label: 'BMI Calculator' },
+    { to: '/videos', icon: Play, label: 'Health Videos' },
     { to: '/settings', icon: Settings, label: 'Settings' },
   ];
 
