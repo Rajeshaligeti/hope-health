@@ -15,7 +15,8 @@ export default {
     extend: {
       fontFamily: {
         'inter': ['Inter', 'sans-serif'],
-        'orbitron': ['Orbitron', 'monospace'],
+        'poppins': ['Poppins', 'sans-serif'],
+        'nunito': ['Nunito', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",

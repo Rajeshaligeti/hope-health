@@ -2,8 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-/* HOPE Healthcare Design System - Futuristic Health Assistant */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap');
+/* HOPE Healthcare Design System - Modern Healthcare Typography */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Nunito:wght@300;400;500;600;700&display=swap');
 
 @layer base {
   :root {
@@ -130,10 +130,70 @@
   body {
     @apply bg-gradient-to-br from-[hsl(220,25%,96%)] to-[hsl(210,30%,98%)] text-foreground font-inter;
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    font-weight: 400; /* Body text weight */
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-orbitron;
+  /* Typography Hierarchy */
+  h1 {
+    @apply font-poppins font-bold text-4xl md:text-5xl;
+    font-weight: 700; /* Strong presence for main headings */
+    line-height: 1.2;
+  }
+
+  h2 {
+    @apply font-poppins font-semibold text-3xl md:text-4xl;
+    font-weight: 600; /* Bold for section headings */
+    line-height: 1.3;
+  }
+
+  h3 {
+    @apply font-poppins font-medium text-2xl md:text-3xl;
+    font-weight: 600; /* Subheadings */
+    line-height: 1.4;
+  }
+
+  h4 {
+    @apply font-poppins font-medium text-xl md:text-2xl;
+    font-weight: 500; /* Smaller subheadings */
+    line-height: 1.4;
+  }
+
+  h5, h6 {
+    @apply font-poppins font-medium text-lg md:text-xl;
+    font-weight: 500;
+    line-height: 1.5;
+  }
+
+  /* Body text variations */
+  .text-body {
+    @apply font-inter;
+    font-weight: 400;
+    line-height: 1.6;
+  }
+
+  .text-body-medium {
+    @apply font-inter;
+    font-weight: 500;
+    line-height: 1.6;
+  }
+
+  /* Labels and captions */
+  .text-label {
+    @apply font-inter text-sm;
+    font-weight: 400;
+    line-height: 1.5;
+  }
+
+  .text-label-medium {
+    @apply font-inter text-sm;
+    font-weight: 500;
+    line-height: 1.5;
+  }
+
+  .text-caption {
+    @apply font-inter text-xs;
+    font-weight: 300;
+    line-height: 1.4;
   }
 }
 
