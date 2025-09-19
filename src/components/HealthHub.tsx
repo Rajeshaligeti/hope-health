@@ -168,7 +168,7 @@ const HealthHub = memo(() => {
                   <span className="text-sm font-semibold text-primary bg-primary/10 px-3 py-1 rounded-full">
                     {reminder.time}
                   </span>
-                  <Button size="sm" variant="outline" className="hover:bg-primary/10 hover:border-primary transition-colors">
+                  <Button size="sm" variant="outline" className="hover:bg-primary/10 hover:border-primary hover:text-primary transition-colors">
                     <Calendar className="w-3 h-3 mr-1" />
                     Add
                   </Button>
@@ -209,7 +209,7 @@ const HealthHub = memo(() => {
                 </div>
               </div>
             ))}
-            <Button variant="outline" className="w-full mt-4 hover:bg-secondary/10 hover:border-secondary transition-colors">
+            <Button variant="outline" className="w-full mt-4 hover:bg-secondary/10 hover:border-secondary hover:text-secondary transition-colors">
               <Play className="w-4 h-4 mr-2" />
               View All Videos
             </Button>
@@ -227,28 +227,28 @@ const HealthHub = memo(() => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <Button 
               variant="outline" 
-              className="h-20 flex-col gap-2 hover:bg-primary/10 hover:border-primary transition-all duration-300 group"
+              className="h-20 flex-col gap-2 hover:bg-primary/10 hover:border-primary hover:text-primary transition-all duration-300 group"
             >
               <Calculator className="w-6 h-6 text-primary group-hover:scale-110 transition-transform" />
               <span className="text-sm">BMI Calculator</span>
             </Button>
             <Button 
               variant="outline" 
-              className="h-20 flex-col gap-2 hover:bg-secondary/10 hover:border-secondary transition-all duration-300 group"
+              className="h-20 flex-col gap-2 hover:bg-secondary/10 hover:border-secondary hover:text-secondary transition-all duration-300 group"
             >
               <Activity className="w-6 h-6 text-secondary group-hover:scale-110 transition-transform" />
               <span className="text-sm">Log Symptoms</span>
             </Button>
             <Button 
               variant="outline" 
-              className="h-20 flex-col gap-2 hover:bg-accent/10 hover:border-accent transition-all duration-300 group"
+              className="h-20 flex-col gap-2 hover:bg-accent/10 hover:border-accent hover:text-accent transition-all duration-300 group"
             >
               <Calendar className="w-6 h-6 text-accent group-hover:scale-110 transition-transform" />
               <span className="text-sm">Schedule</span>
             </Button>
             <Button 
               variant="outline" 
-              className="h-20 flex-col gap-2 hover:bg-primary/10 hover:border-primary transition-all duration-300 group"
+              className="h-20 flex-col gap-2 hover:bg-primary/10 hover:border-primary hover:text-primary transition-all duration-300 group"
             >
               <Heart className="w-6 h-6 text-primary group-hover:scale-110 transition-transform" />
               <span className="text-sm">Health Check</span>
