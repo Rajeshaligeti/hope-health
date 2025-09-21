@@ -6,9 +6,28 @@ import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Responsive
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useHealthData, useCalendarAPI, useHealthVideos } from '@/hooks/useHealthAPI';
+import { useNavigate } from 'react-router-dom';
 
 const HealthHub = memo(() => {
   const { heartRate, bloodPressure, steps, sleep } = healthMetrics;
+  const navigate = useNavigate();
+  const { addEvent } = useCalendarAPI();
+
+  const handleAddToCalendar = async (reminder: any) => {
+    try {
+      await addEvent({
+        title: reminder.medication,
+        description: `Medication reminder: ${reminder.dosage}`,
+        date: new Date().toISOString().split('T')[0],
+        time: reminder.time,
+        type: 'medication'
+      });
+      // You could add a toast notification here
+      console.log('Added to calendar:', reminder.medication);
+    } catch (error) {
+      console.error('Failed to add to calendar:', error);
+    }
+  };
 
   const sleepData = [
     { name: 'Deep Sleep', value: 2.2, color: 'hsl(var(--primary))' },
@@ -168,7 +187,7 @@ const HealthHub = memo(() => {
                   <span className="text-sm font-semibold text-primary bg-primary/10 px-3 py-1 rounded-full">
                     {reminder.time}
                   </span>
-                  <Button size="sm" variant="outline" className="hover:bg-primary/10 hover:border-primary hover:text-primary transition-colors">
+                  <Button size="sm" variant="outline" className="hover:bg-primary/10 hover:border-primary hover:text-primary transition-colors" onClick={(e) => { e.stopPropagation(); handleAddToCalendar(reminder); }}>
                     <Calendar className="w-3 h-3 mr-1" />
                     Add
                   </Button>
@@ -209,7 +228,7 @@ const HealthHub = memo(() => {
                 </div>
               </div>
             ))}
-            <Button variant="outline" className="w-full mt-4 hover:bg-secondary/10 hover:border-secondary hover:text-secondary transition-colors">
+            <Button variant="outline" className="w-full mt-4 hover:bg-secondary/10 hover:border-secondary hover:text-secondary transition-colors" onClick={() => navigate('/videos')}>
               <Play className="w-4 h-4 mr-2" />
               View All Videos
             </Button>
@@ -228,6 +247,7 @@ const HealthHub = memo(() => {
             <Button 
               variant="outline" 
               className="h-20 flex-col gap-2 hover:bg-primary/10 hover:border-primary hover:text-primary transition-all duration-300 group"
+              onClick={() => navigate('/bmi')}
             >
               <Calculator className="w-6 h-6 text-primary group-hover:scale-110 transition-transform" />
               <span className="text-sm">BMI Calculator</span>
@@ -235,6 +255,7 @@ const HealthHub = memo(() => {
             <Button 
               variant="outline" 
               className="h-20 flex-col gap-2 hover:bg-secondary/10 hover:border-secondary hover:text-secondary transition-all duration-300 group"
+              onClick={() => navigate('/symptoms')}
             >
               <Activity className="w-6 h-6 text-secondary group-hover:scale-110 transition-transform" />
               <span className="text-sm">Log Symptoms</span>
@@ -242,6 +263,7 @@ const HealthHub = memo(() => {
             <Button 
               variant="outline" 
               className="h-20 flex-col gap-2 hover:bg-accent/10 hover:border-accent hover:text-accent transition-all duration-300 group"
+              onClick={() => navigate('/calendar')}
             >
               <Calendar className="w-6 h-6 text-accent group-hover:scale-110 transition-transform" />
               <span className="text-sm">Schedule</span>
@@ -249,6 +271,7 @@ const HealthHub = memo(() => {
             <Button 
               variant="outline" 
               className="h-20 flex-col gap-2 hover:bg-primary/10 hover:border-primary hover:text-primary transition-all duration-300 group"
+              onClick={() => navigate('/assistant')}
             >
               <Heart className="w-6 h-6 text-primary group-hover:scale-110 transition-transform" />
               <span className="text-sm">Health Check</span>

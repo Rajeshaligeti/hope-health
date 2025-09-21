@@ -8,6 +8,10 @@ const Navigation = memo(() => {
   const navItems = [
     { to: '/', icon: LayoutDashboard, label: 'Health Hub' },
     { to: '/assistant', icon: MessageCircle, label: 'Health Assistant' },
+    { to: '/bmi', icon: Calculator, label: 'BMI Calculator' },
+    { to: '/symptoms', icon: Stethoscope, label: 'Symptoms' },
+    { to: '/calendar', icon: Calendar, label: 'Calendar' },
+    { to: '/videos', icon: Play, label: 'Videos' },
     { to: '/settings', icon: Settings, label: 'Settings' },
   ];
 

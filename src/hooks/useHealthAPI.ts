@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 
-// API endpoint placeholders - ready for backend integration
-const API_BASE_URL = '/api';
+// Hardcoded API keys
+const GEMINI_API_KEY = 'AIzaSyClwXDYR7Vi-wbDZ56nmzxbHZCndsEh3Rk';
+const GOOGLE_API_KEY = 'AIzaSyAQc1Kl8QdiRok-Mj0bx1-KsxuJt3DHrzs';
 
 // Health Data API Hook
 export const useHealthData = () => {
@@ -120,27 +121,40 @@ export const useHealthVideos = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchVideos = async () => {
+  const fetchVideos = async (query = 'health wellness exercise') => {
     setLoading(true);
     setError(null);
     try {
-      // TODO: Replace with actual API call to /api/videos
-      // const response = await fetch(`${API_BASE_URL}/videos`);
-      // const data = await response.json();
+      const response = await fetch(
+        `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}&type=video&maxResults=10&key=${GOOGLE_API_KEY}`
+      );
       
-      // Mock health videos data
+      if (!response.ok) {
+        throw new Error('Failed to fetch videos');
+      }
+      
+      const data = await response.json();
+      const videoData = data.items?.map((item: any) => ({
+        id: item.id.videoId,
+        title: item.snippet.title,
+        description: item.snippet.description,
+        youtubeId: item.id.videoId,
+        category: 'Health',
+        duration: '5:00',
+        thumbnail: item.snippet.thumbnails?.medium?.url || '/placeholder.svg'
+      })) || [];
+      
+      setVideos(videoData);
+      setLoading(false);
+    } catch (err) {
+      setError('Failed to fetch health videos');
+      // Fallback to mock data if API fails
       const mockVideos = [
         { id: 1, title: '10-Minute Morning Yoga', category: 'Exercise', duration: '10:00', thumbnail: '/placeholder.svg' },
         { id: 2, title: 'Healthy Heart Tips', category: 'Education', duration: '5:30', thumbnail: '/placeholder.svg' },
         { id: 3, title: 'Meditation for Sleep', category: 'Wellness', duration: '15:00', thumbnail: '/placeholder.svg' }
       ];
-      
-      setTimeout(() => {
-        setVideos(mockVideos);
-        setLoading(false);
-      }, 600);
-    } catch (err) {
-      setError('Failed to fetch health videos');
+      setVideos(mockVideos);
       setLoading(false);
     }
   };
@@ -157,30 +171,25 @@ export const useChatAPI = () => {
     setLoading(true);
     setError(null);
     try {
-      // TODO: Replace with actual API call to /api/chat
-      // const response = await fetch(`${API_BASE_URL}/chat`, {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({ message })
-      // });
-      // const data = await response.json();
-      
-      // Mock AI response
-      const mockResponses = [
-        "Based on your health data, I recommend staying hydrated and maintaining regular exercise.",
-        "I've analyzed your symptoms. Consider scheduling a check-up if these persist.",
-        "Your vital signs look good. Focus on consistent sleep and balanced nutrition.",
-        "I notice patterns in your metrics. Here are personalized recommendations...",
-        "That's a great question! Based on medical guidelines, here's what I recommend..."
-      ];
-      
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          const response = { reply: mockResponses[Math.floor(Math.random() * mockResponses.length)] };
-          setLoading(false);
-          resolve(response);
-        }, 1500);
+      const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=' + GEMINI_API_KEY, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          contents: [{
+            parts: [{
+              text: `You are HOPE, a healthcare AI assistant. Provide helpful, accurate health information and guidance. User message: ${message}`
+            }]
+          }]
+        })
       });
+      
+      const data = await response.json();
+      const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || 'I apologize, but I cannot provide a response at this time.';
+      
+      setLoading(false);
+      return { reply };
     } catch (err) {
       setError('Failed to get AI response');
       setLoading(false);
@@ -200,28 +209,36 @@ export const useSymptomsAPI = () => {
     setLoading(true);
     setError(null);
     try {
-      // TODO: Replace with actual API call to /api/symptoms
-      // const response = await fetch(`${API_BASE_URL}/symptoms`, {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({ symptoms })
-      // });
-      // const data = await response.json();
-      
-      // Mock symptom analysis
-      const mockConditions = [
-        { name: 'Common Cold', probability: 0.75, severity: 'mild' },
-        { name: 'Seasonal Allergies', probability: 0.60, severity: 'mild' },
-        { name: 'Viral Infection', probability: 0.45, severity: 'moderate' }
-      ];
-      
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          const response = { conditions: mockConditions };
-          setLoading(false);
-          resolve(response);
-        }, 2000);
+      const symptomsText = symptoms.join(', ');
+      const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=' + GEMINI_API_KEY, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          contents: [{
+            parts: [{
+              text: `As a medical AI, analyze these symptoms: ${symptomsText}. Provide a JSON response with an array of possible conditions, each having: name, probability (0-1), severity (low/medium/high), and recommendations array. Be informative but remind users to consult healthcare professionals.`
+            }]
+          }]
+        })
       });
+      
+      const data = await response.json();
+      const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+      
+      try {
+        const parsed = JSON.parse(reply);
+        setLoading(false);
+        return { conditions: parsed.conditions || parsed };
+      } catch {
+        // Fallback if JSON parsing fails
+        const conditions = [
+          { name: 'Please consult a healthcare professional', probability: 1.0, severity: 'medium', recommendations: ['Schedule an appointment with your doctor', 'Monitor symptoms closely'] }
+        ];
+        setLoading(false);
+        return { conditions };
+      }
     } catch (err) {
       setError('Failed to analyze symptoms');
       setLoading(false);
