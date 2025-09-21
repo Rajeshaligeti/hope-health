@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 
 // Hardcoded API keys
-const GEMINI_API_KEY = 'AIzaSyClwXDYR7Vi-wbDZ56nmzxbHZCndsEh3Rk';
-const GOOGLE_API_KEY = 'AIzaSyAQc1Kl8QdiRok-Mj0bx1-KsxuJt3DHrzs';
+const GEMINI_API_KEY = 'AIzaSyBPohiYFxkQvpmmzI9okSM8J2zVVV3dBkA';
+const GOOGLE_API_KEY = 'AIzaSyBIU9JtDpU_ymL5VHuzfwp6ETVop7VvWKc';
 
 // Health Data API Hook
 export const useHealthData = () => {
